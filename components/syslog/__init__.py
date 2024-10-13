@@ -25,8 +25,10 @@ CONFIG_SCHEMA = cv.All(
         cv.Optional(CONF_STRIP_COLORS, default=True): cv.boolean,
         cv.Optional(CONF_MIN_LEVEL, default="DEBUG"): is_log_level,
     }),
-    cv.only_with_arduino,
-)
+    cv.conditionally(
+        cv.only_with_arduino,
+        cv.only_with_esp_idf
+    ))
 
 SYSLOG_LOG_ACTION_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.use_id(SyslogComponent),
